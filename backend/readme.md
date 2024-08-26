@@ -3,7 +3,8 @@
 
 This project is a Django-based application using MongoDB as the database. It provides both user and admin functionalities, including registration, login, password management, role-based permissions, and user management.
 
-
+## Frontend App Code to interact with API
+[Click Here](https://github.com/rvindr/janbask-assessment-django-project/tree/main/frontend)
 ## Features
 
 - User Registration & Authentication: Supports user registration, login, and password management.
@@ -33,8 +34,8 @@ This project is a Django-based application using MongoDB as the database. It pro
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/rvindr/janbask-assessment-django-project.git
+cd backend
 ```
 
 2. Create a virtual environment and activate it:
