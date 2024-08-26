@@ -2,6 +2,15 @@
 
 This is a Django-based administrative portal for managing user accounts, roles, permissions, and activity logs. The portal provides authentication and user management features, along with the ability to manage roles and permissions through a clean and organized interface.
 
+## Demo Video
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=pVvuIgGJNx0">
+    <img src="https://github.com/user-attachments/assets/56d2c858-faa4-4f23-a212-9c39599e0f82" alt="Watch the demo video" style="width:80%; height:auto;">
+  </a>
+</div>
+
+
 ## Features
 
 - **Admin Authentication:** Admins can log in and out securely using JWT tokens.
@@ -91,6 +100,9 @@ This is a Django-based administrative portal for managing user accounts, roles, 
 - Assign a role to a user via `/users/<user_id>/role/`.
 - View and manage permissions via `/admin/permission/`.
 - Create a new permission via `/create-permission/`.
+
+
+  
 
 ## Contributing
 
