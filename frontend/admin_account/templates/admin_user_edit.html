@@ -1,0 +1,47 @@
+{% extends 'admin_base.html' %}
+{% block title %}
+  Edit User
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-body">
+            <h3 class="card-title text-center mb-4">Update User Information</h3>
+            <form method="POST" action="{% url 'admin-edit-user' user.id %}">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                  <label for="first_name" class="form-label">First Name</label>
+                  <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}" required />
+                </div>
+                <div class="mb-3">
+                  <label for="last_name" class="form-label">Last Name</label>
+                  <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}" required />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email Address</label>
+                  <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required />
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Enter a new password (optional)" />
+                </div>
+                
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">Update User</button>
+                </div>
+            </form>
+            {% if message %}
+              <div class="alert alert-danger mt-3">
+                <p class="text-center">{{ message }}</p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid p-0">
+    <div class="position-relative text-center bg-dark text-white" style="height: 100vh;">
+        <img src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&cs=tinysrgb&w=1600" class="img-fluid w-100 h-100 object-fit-cover" alt="Background Image" style="opacity: 0.5;">
+        <div class="position-absolute top-50 start-50 translate-middle text-center">
+            <h1 class="display-4 fw-bold">Welcome to MyWebsite</h1>
+            <p class="lead">Your one-stop solution for all your needs.</p>
+            {% if not request.session.auth_token %}
+            <div class="d-flex justify-content-center mt-3">
+                <a href="{% url "login" %}" class="btn btn-primary btn-lg mx-2">Log In</a>
+                <a href="{% url "register" %}" class="btn btn-outline-light btn-lg mx-2">Sign Up</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

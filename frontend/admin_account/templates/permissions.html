@@ -1,0 +1,55 @@
+{% extends 'admin_base.html' %}
+{% block title %}
+Permissions
+{% endblock %}
+
+{% block content %}
+
+<div class="container  mt-5 rounded-4 shadow bg-white">
+    {% if messages %}
+    <p>
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                <p class="text-center">{{ message }}</p>
+                {% endfor %}
+
+            </div>
+        </p>
+          {% endif %}
+    <div class="mb-4 text-center p-4">
+    <h1 >Permissions</h1>
+    <a href="{% url 'create-permission' %}" class="btn btn-success">Create Permission</a>
+</div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>permission ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for permission in permissions %}
+            <tr>
+                <td>{{ permission.id }}</td>
+                <td>{{ permission.name }}</td>
+                <td>{{ permission.description }}</td>
+                <td>
+                    <form method="post" action="{% url 'permissions' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="permission_id" value="{{ permission.id }}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+                
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No permissions available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

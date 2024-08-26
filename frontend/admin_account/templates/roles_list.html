@@ -1,0 +1,65 @@
+{% extends 'admin_base.html' %}
+{% block title %}
+  Roles List
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5 rounded-4 shadow bg-white">
+    {% if messages %}
+    <p>
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                <p class="text-center">{{ message }}</p>
+                {% endfor %}
+
+            </div>
+        </p>
+          {% endif %}
+          <div class="mb-4 text-center p-4">
+            <h1 >Role Management</h1>
+            <a href="{% url 'create-role' %}" class="btn btn-success">Create Role</a>
+        </div>
+
+    <table class="table table-bordered ">
+        <thead>
+            <tr>
+                <th>Role ID</th>
+                <th>Name</th>
+                <th>Permissions</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for role in roles %}
+            <tr>
+                <td>{{ role.id }}</td>
+                <td>{{ role.name }}</td>
+                <td>
+                    {% if role.permissions %}
+                        <ul>
+                            {% for permission in role.permissions %}
+                                <li>{{ permission }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        No permissions assigned
+                    {% endif %}
+                </td>
+                <td>
+                    <form method="post" action="{% url 'roles' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="role_id" value="{{ role.id }}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No roles available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

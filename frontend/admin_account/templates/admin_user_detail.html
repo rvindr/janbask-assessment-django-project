@@ -1,0 +1,61 @@
+{% extends 'admin_base.html' %}
+{% block title %}
+  User Profile
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white">
+            <h3 class="text-center">User Profile</h3>
+          </div>
+          <div class="card-body">
+            {% if user %}
+              <p>
+                <strong>User ID:</strong> {{ user.id }}
+              </p>
+              <p>
+                <strong>First Name:</strong> {{ user.first_name }}
+              </p>
+              <p>
+                <strong>Last Name:</strong> {{ user.last_name }}
+              </p>
+              <p>
+                <strong>Email:</strong> {{ user.email }}
+              </p>
+
+              <p>
+                <strong>Role ID:</strong> {{ user.role_id }}
+              </p>
+              <p>
+                <strong>Role:</strong> {{ user.role_name }}
+              </p>
+              <p>
+                <strong>Is Admin:</strong> {{ user.is_admin }}
+              </p>
+              <p>
+                <strong>Active:</strong> {{ user.is_active }}
+              </p>
+
+              <a class="btn btn-warning mt-3" href="{% url 'admin-edit-user' user.id %}">Update</a>
+              <a class="btn btn-success mt-3" href="{% url 'assign-role' user.id %}">Assign Role</a>
+              <a class="btn btn-primary mt-3" href="{% url 'user-activity-logs-view' user.id %}">User History</a>
+              {% if user.is_active %}
+              <a class="btn btn-danger mt-3" href="{% url 'user-deactivate' user.id %}">Deactivate User</a>
+              {% else %}
+              <a class="btn btn-success mt-3" href="{% url 'user-activate' user.id %}">Activate User</a>
+              {% endif %}
+            {% endif %}
+
+            <!-- Error or Success Messages -->
+            {% if message %}
+              <div class="alert alert-info mt-4">{{ message }}</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

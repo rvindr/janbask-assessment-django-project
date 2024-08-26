@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}
+  User Profile
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="text-center">User Profile</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if user_info %}
+                        <p>
+                            <strong>User ID:</strong> {{ user_info.id }}
+                        </p>
+                        <p>
+                            <strong>First Name:</strong> {{ user_info.first_name }}
+                        </p>
+                        <p>
+                            <strong>Last Name:</strong> {{ user_info.last_name }}
+                        </p>
+                        <p>
+                            <strong>Email:</strong> {{ user_info.email }}
+                        </p>
+                        <p>
+                            <strong>Role:</strong> {{ user_info.role_name }}
+                        </p>
+                        
+                        {% if user_info.role_id %}
+                            <p>
+                                <strong>Role ID:</strong> {{ user_info.role_id }}
+                            </p>
+                        {% endif %}
+                        <!-- Change Password Button -->
+                        <a class="btn btn-warning mt-3" href="{% url 'change-password' %}">Change Password</a>
+                        {% endif %}
+
+                        <!-- Error or Success Messages -->
+                        {% if message %}
+                            <div class="alert alert-info mt-4">{{ message }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

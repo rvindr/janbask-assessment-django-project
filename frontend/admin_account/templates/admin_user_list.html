@@ -1,0 +1,49 @@
+{% extends "admin_base.html" %}
+
+
+{% block content %}
+<div class="container mt-5 rounded-4 shadow bg-white">
+    {% if messages %}
+    <p class="text-center mt-2">
+        
+        <div class="alert alert-primary" role="alert">
+            {% for message in messages %}
+            <p class="text-center">{{ message }}</p>
+            {% endfor %}
+
+        </div>
+    </p>
+
+      {% endif %}
+    <h2 class="mb-4 text-center p-4">Users Information</h2>
+    <table class="table table-striped ">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Email</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+
+                <th scope="col">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <th scope="row">{{ user.id }}</th>
+                <td>{{ user.email }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+
+
+
+                <td>
+                    <a href="{% url 'admin-user-detail' user.id %}" class="btn btn-primary">detail</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

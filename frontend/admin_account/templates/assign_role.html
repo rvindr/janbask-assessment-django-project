@@ -1,0 +1,43 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Assign Role to User</h4>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" action="{% url 'assign-role' user_id=user_id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="role_id" class="form-label">Select Role</label>
+                            <select id="role_id" name="role_id" class="form-select">
+                                <option value="">-- Select a role --</option>
+                                {% for role in roles %}
+                                    <option value="{{ role.id }}">{{ role.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Assign Role</button>
+                    </form>
+
+                    <div class="mt-4">
+                        <a href="{% url 'admin-user-list' %}" class="btn btn-secondary w-100">Back to User List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

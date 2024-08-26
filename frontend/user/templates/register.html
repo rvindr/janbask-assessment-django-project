@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}
+  Register
+{% endblock %}
+
+{% block content %}
+  <!-- Sign Up Form -->
+  {% comment %} <div class="container">
+    {% endcomment %}
+    <div class="row justify-content-center" style="background-image: url('https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=800'); background-size: cover; background-position: center; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-body">
+            <h3 class="card-title text-center mb-4">Create an Account</h3>
+            <form method="POST" action="{% url "register" %}">
+                {% csrf_token %}
+              <div class="mb-3">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name" required />
+              </div>
+              <div class="mb-3">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter your last name" required />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required />
+              </div>
+              <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter your password" required  minlength="8"/>
+              </div>
+              <div class="mb-3">
+                <label for="password2" class="form-label">Repeat Password</label>
+                <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm your password" required  minlength="8"/>
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+              </div>
+            </form>
+            <div class="text-center mt-3">
+              <p class="text-muted">
+                Already have an account? <a href="{% url "login" %}">Log In</a>
+              </p>
+            </div>
+          </div>
+          {% if messages %}
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                <p class="text-center">{{ message }}</p>
+                {% endfor %}
+
+            </div>
+          {% endif %}
+          {% if message %}
+            <div class="alert alert-primary" role="alert">
+                <p class="text-center">{{ message }}</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% comment %}
+  </div> {% endcomment %}
+{% endblock %}

@@ -1,0 +1,35 @@
+
+{% extends "admin_base.html" %}
+
+{% block content %}
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card shadow">
+          <div class="card-body">
+            <h2>Create Permission</h2>
+    <form method="post" action="{% url 'create-permission' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label">Permission Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter permission name" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter description (optional)"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Permission</button>
+    </form>
+            {% if message %}
+              <div class="alert alert-danger mt-3">
+                <p class="text-center">{{ message }}</p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
