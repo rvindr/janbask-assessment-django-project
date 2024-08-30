@@ -198,3 +198,26 @@ class ResetPasswordView(View):
 
             context = {"uid": uid, "token": token, "error_message": error_message}
             return render(request, "reset_password.html", context)
+
+
+
+class ProtectedView(View):
+    def get(self, request):
+        auth_token = request.session.get("auth_token")
+
+        # Fetch existing roles from the backend API
+        api_url = f"{API_BASE_URL}/api/admin/protected/"
+        headers = {"Authorization": f"Bearer {auth_token}"}
+        response = requests.get(api_url, headers=headers)
+
+
+        if response.status_code == 200:
+            res = response.json().get('message')
+            messages.success(request,res)
+            return render(request,'protected.html')
+        else:
+            res = response.json().get('detail','Not Authorized')
+            messages.error(request,res)
+            return render(request,'protected.html')
+
+
