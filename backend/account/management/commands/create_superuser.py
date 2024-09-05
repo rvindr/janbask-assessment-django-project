@@ -13,8 +13,15 @@ class Command(BaseCommand):
         # Prompt for user input
         email = input("Email: ")
         password = getpass("Password: ")
+
+        if len(password) < 8:
+            self.stdout.write(self.style.ERROR("Password must be at least 8 characters long"))
+            return
+        
         first_name = input("First name: ")
         last_name = input("Last name: ")
+
+        
 
         # Check if user already exists
         if users_collection.find_one({"email": email}):
