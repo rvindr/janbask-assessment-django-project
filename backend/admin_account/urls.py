@@ -41,6 +41,11 @@ urlpatterns = [
         UserRoleAssignmentView.as_view(),
         name="assign-role",
     ),
+    path(
+        "users/<str:user_id>/role/<str:role_id>/remove/",
+        UserRoleAssignmentView.as_view(),
+        name="remove-role",
+    ),
     # ---------------------temp-------
     path("protected/", SomeView.as_view(), name="protected"),
 ]

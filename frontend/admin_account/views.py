@@ -496,3 +496,28 @@ class AssignRoleView(View):
             messages.error(request, "Failed to assign role.")
 
         return redirect("assign-role", user_id=user_id)
+
+
+
+class AdminUserRoleDeleteView(View):
+    def post(self, request):
+        user_id = request.POST.get('user_id')
+        role_id = request.POST.get('role_id')
+
+        auth_token = request.session.get("auth_token")
+
+        # Define the API URL
+        api_url = f"{API_BASE_URL}/api/admin/users/{user_id}/role/{role_id}/remove/"
+
+        # Make a GET request to the backend API to retrieve user data
+        headers = {"Authorization": f"Bearer {auth_token}"}
+        response = requests.delete(api_url, headers=headers)
+
+        if response.status_code == 200:
+            messages.success(request, "User role deleted successfully")
+            return redirect("admin-user-list")
+        else:
+            error = response.json().get("error", "Something went wrong")
+            messages.error(request,error)
+            return redirect("admin-user-list")
+        

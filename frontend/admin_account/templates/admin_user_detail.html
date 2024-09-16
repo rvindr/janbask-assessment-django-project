@@ -40,13 +40,25 @@
               </p>
 
               <a class="btn btn-warning mt-3" href="{% url 'admin-edit-user' user.id %}">Update</a>
+              
+              
               <a class="btn btn-success mt-3" href="{% url 'assign-role' user.id %}">Assign Role</a>
               <a class="btn btn-primary mt-3" href="{% url 'user-activity-logs-view' user.id %}">User History</a>
               {% if user.is_active %}
               <a class="btn btn-danger mt-3" href="{% url 'user-deactivate' user.id %}">Deactivate User</a>
               {% else %}
               <a class="btn btn-success mt-3" href="{% url 'user-activate' user.id %}">Activate User</a>
+              
               {% endif %}
+              <form action="{% url 'delete-role' %}" method="POST">
+                {% csrf_token %}
+                <!-- Hidden fields for user_id and role_id -->
+                <input type="hidden" name="user_id" value="{{ user.id }}">
+                <input type="hidden" name="role_id" value="{{ user.role_id }}">
+                
+                <!-- Button to submit the form -->
+                <button type="submit" class="btn btn-danger mt-3">Delete Role</button>
+              </form>
             {% endif %}
 
             <!-- Error or Success Messages -->

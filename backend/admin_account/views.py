@@ -241,6 +241,8 @@ class UserRoleAssignmentView(APIView):
     """
     Assigns a role to a user.
     """
+    authentication_classes = [CustomJWTAuthentication]
+    permission_classes = [IsAuthenticated, IsAdminPermission]
 
     def put(self, request, user_id):
         user = users_collection.find_one({"_id": user_id})
@@ -264,6 +266,42 @@ class UserRoleAssignmentView(APIView):
             return Response({"message": "Role assigned to user successfully"})
         return Response(
             {"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST
+        )
+
+    def delete(self, request, user_id, role_id):
+        """
+        Remove a role from a user.
+        """
+
+        user = users_collection.find_one({"_id": user_id})
+        if not user:
+            return Response(
+                {"detail": "User not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        role = roles_collection.find_one({"_id": role_id})
+        if not role:
+            return Response(
+                {"detail": "Role not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        if role_id != user.get("role_id"):
+            return Response(
+                {"detail": "Role is not assigned to this user"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Set `role_id` to `None` to represent null in MongoDB
+        users_collection.update_one(
+            {"_id": user_id},
+            {"$set": {"role_id": None}}
+        )
+
+        return Response(
+            {"detail": "Role removed successfully from the user."},
+            status=status.HTTP_200_OK
         )
 
 

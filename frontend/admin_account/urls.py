@@ -15,6 +15,7 @@ from admin_account.views import (
     PermissionCreateView,
     CreateRoleView,
     AssignRoleView,
+    AdminUserRoleDeleteView
 )
 
 urlpatterns = [
@@ -59,4 +60,5 @@ urlpatterns = [
     path("admin/roles/", RolesView.as_view(), name="roles"),
     path("create-role/", CreateRoleView.as_view(), name="create-role"),
     path("users/<str:user_id>/role/", AssignRoleView.as_view(), name="assign-role"),
+    path("users/role-delete/", AdminUserRoleDeleteView.as_view(), name="delete-role"),
 ]
